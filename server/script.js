@@ -4,5 +4,6 @@ socket.onopen = function() {
   document.getElementById('connected').style.display = 'block';
 };
 socket.onmessage = function (event) {
-  console.log(JSON.parse(event.data));
+  var [clientId, key, value] = event.data.split('_');
+  document.getElementById('clientinput').value += clientId + '_' + key + '_' + value + '\n';
 };

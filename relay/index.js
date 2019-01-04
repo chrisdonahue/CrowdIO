@@ -13,6 +13,16 @@ relayServer = new WebSocketServer({
 });
 
 var server = null;
+function sendMessageToServer(clientId, key, value) {
+  const msg = String(clientId) + '_' + String(key) + '_' + String(value);
+  if (server !== null) {
+    server.send(msg);
+  }
+  console.log(msg);
+}
+
+const clientIdChars = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"];
+const clientIdLen = 16
 
 relayServer.on('request', function(request) {
   if (request.requestedProtocols.length !== 1) {
@@ -20,28 +30,25 @@ relayServer.on('request', function(request) {
   }
   if (request.requestedProtocols[0] === 'client') {
     const connection = request.accept('client', request.origin);
-    const clientId = Math.random().toString(36).substring(8);
+
+    const clientId = [...Array(clientIdLen)].map(i=>clientIdChars[Math.random()*clientIdChars.length|0]).join``;
     console.log('Client connected: ' + clientId);
+    sendMessageToServer(clientId, 'connected', 1);
+
     connection.on('message', function(message) {
-      if (server !== null) {
         if (message.type == 'utf8') {
+          var key, value;
           try {
-            button = Number(message.utf8Data);
+            [key, value] = message.utf8Data.split('_');
           }
           catch (e) {
             return;
           }
-          console.log(clientId + ': ' + button);
-          server.send(button);
+          sendMessageToServer(clientId, key, value)
         }
-      }
     });
   }
   else {
-    if (server !== null) {
-      request.reject();
-      throw 'Server already exists';
-    }
     server = request.accept('server', request.origin);
     console.log('Server connected');
   }

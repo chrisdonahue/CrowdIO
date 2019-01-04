@@ -12,5 +12,10 @@ h1 {
 
 button {
   width: 50px;
-  height: 50px;
+  height: 100px;
+}
+
+#buttons {
+  display: table;
+  margin: 0 auto;
 }
