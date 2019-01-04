@@ -8,8 +8,8 @@
 
 ### Example client applications
 
-- [8 Buttons](https://pear-olive.glitch.me)
-- [Thumbs up or down](TODO)
+- [8 Buttons](http://pear-olive.glitch.me)
+- [Thumbs up or down](http://coherent-pike.glitch.me)
 
 ### Example server applications
 
