@@ -3,8 +3,10 @@
 ### Package structure
 
 - `relay/`: Node server which relays message from client webapp to server webapp
-- `client/`: Client code for simple 8-button interface
-- `server/`: Server code for receiving messages from multiple clients
+- `client_8button/`: Client code for simple 8-button interface
+- `client_vote/`: Client code for simple voting interface
+- `server_example/`: Skeleton server code for receiving messages from multiple clients
+- `server_wavegan/`: Server code for controlling WaveGAN demo
 
 ### Example client applications
 
